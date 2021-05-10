@@ -23,6 +23,8 @@ fun String.convertWordToNumber(): Int {
     return convertWords(this)
 }
 
+// FIXME: merge "contain" ifs
+// FIXME: extract constant var
 fun convertWords(wordNumber: String): Int {
     val filteredWords = cardinalNumbers.filterValues { word -> wordNumber == word }
 
@@ -41,6 +43,7 @@ fun convertWords(wordNumber: String): Int {
     return getOrdinal2DigitsNumber(wordNumber)
 }
 
+// FIXME: extract constant var
 fun get3DigitsNumber(wordNumber: String): Int {
     return convertWords(wordNumber.split(" ").first()) * 100
 }
@@ -52,6 +55,7 @@ private fun convertNumbers(number: Int): String {
     return convertFunctions["$number".length]?.invoke(number).toString()
 }
 
+// FIXME: refactor error handling to an exception
 private fun get2DigitsText(number: Int): String {
     val remain = number % 10
     val tens = number - remain
