@@ -1,75 +1,110 @@
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class NumberInWordsKtTest {
-
+internal class NumberInWordsKtTest {
     @Test
-    fun `a single digit should return one to nine`() {
-        expectedConversion()
-        expectedConversion(expected = "one", number = 1)
-        expectedConversion(expected = "two", number = 2)
-        expectedConversion(expected = "three", number = 3)
-        expectedConversion(expected = "four", number = 4)
-        expectedConversion(expected = "five", number = 5)
-        expectedConversion(expected = "six", number = 6)
-        expectedConversion(expected = "seven", number = 7)
-        expectedConversion(expected = "eight", number = 8)
-        expectedConversion(expected = "nine", number = 9)
+    fun `3 - should be three`() {
+        assertEquals("three", 3.convertNumberToWords())
     }
 
     @Test
-    fun `a two digit number should return ten to twenty`() {
-        expectedConversion("ten", 10)
-        expectedConversion(expected = "eleven", number = 11)
-        expectedConversion(expected = "twelve", number = 12)
-        expectedConversion(expected = "thirteen", number = 13)
-        expectedConversion(expected = "fourteen", number = 14)
-        expectedConversion(expected = "fifteen", number = 15)
-        expectedConversion(expected = "sixteen", number = 16)
-        expectedConversion(expected = "seventeen", number = 17)
-        expectedConversion(expected = "eighteen", number = 18)
-        expectedConversion(expected = "nineteen", number = 19)
-        expectedConversion(expected = "twenty", number = 20)
+    fun `0 - should be zero`() {
+        assertEquals("zero", 0.convertNumberToWords())
     }
 
     @Test
-    fun `should return arbitrary two digits`() {
-        expectedConversion(expected = "twenty-one", number = 21)
-        expectedConversion(expected = "twenty-nine", number = 29)
-        expectedConversion(expected = "thirty", number = 30)
+    fun `should return 1 to 9 in words`() {
+        expectedConversionWord(number = 1, expectedWord = "one")
+        expectedConversionWord(number = 2, expectedWord = "two")
+        expectedConversionWord(number = 3, expectedWord = "three")
+        expectedConversionWord(number = 4, expectedWord = "four")
+        expectedConversionWord(number = 5, expectedWord = "five")
+        expectedConversionWord(number = 6, expectedWord = "six")
+        expectedConversionWord(number = 7, expectedWord = "seven")
+        expectedConversionWord(number = 8, expectedWord = "eight")
+        expectedConversionWord(number = 9, expectedWord = "nine")
     }
 
     @Test
-    fun `should convert tens to word`() {
-        expectedConversion(expected = "twenty", number = 20)
-        expectedConversion(expected = "thirty", number = 30)
-        expectedConversion(expected = "forty", number = 40)
-        expectedConversion(expected = "fifty", number = 50)
-        expectedConversion(expected = "sixty", number = 60)
-        expectedConversion(expected = "seventy", number = 70)
-        expectedConversion(expected = "eighty", number = 80)
-        expectedConversion(expected = "ninety", number = 90)
+    fun `should return 10 to 19 numbers in words`() {
+        expectedConversionWord(number = 10, expectedWord = "ten")
+        expectedConversionWord(number = 11, expectedWord = "eleven")
+        expectedConversionWord(number = 12, expectedWord = "twelve")
+        expectedConversionWord(number = 13, expectedWord = "thirteen")
+        expectedConversionWord(number = 14, expectedWord = "fourteen")
+        expectedConversionWord(number = 15, expectedWord = "fifteen")
+        expectedConversionWord(number = 16, expectedWord = "sixteen")
+        expectedConversionWord(number = 17, expectedWord = "seventeen")
+        expectedConversionWord(number = 18, expectedWord = "eighteen")
+        expectedConversionWord(number = 19, expectedWord = "nineteen")
     }
 
     @Test
-    fun `should convert 100 to one hundred`() {
-        expectedConversion(expected = "one hundred", number = 100)
-        expectedConversion(expected = "two hundred", number = 200)
-        expectedConversion(expected = "three hundred", number = 300)
-        expectedConversion(expected = "four hundred", number = 400)
-        expectedConversion(expected = "five hundred", number = 500)
-        expectedConversion(expected = "six hundred", number = 600)
-        expectedConversion(expected = "seven hundred", number = 700)
-        expectedConversion(expected = "eight hundred", number = 800)
-        expectedConversion(expected = "nine hundred", number = 900)
+    fun `should return 10's multiples numbers in words`() {
+        expectedConversionWord(number = 10, expectedWord = "ten")
+        expectedConversionWord(number = 20, expectedWord = "twenty")
+        expectedConversionWord(number = 30, expectedWord = "thirty")
+        expectedConversionWord(number = 40, expectedWord = "forty")
+        expectedConversionWord(number = 50, expectedWord = "fifty")
+        expectedConversionWord(number = 60, expectedWord = "sixty")
+        expectedConversionWord(number = 70, expectedWord = "seventy")
+        expectedConversionWord(number = 80, expectedWord = "eighty")
+        expectedConversionWord(number = 90, expectedWord = "ninety")
     }
 
     @Test
-    fun `should convert arbitrary hundreds`() {
-
+    fun `should convert arbitrary hundred numbers in words`() {
+        expectedConversionWord(number = 101, expectedWord = "one hundred and one")
+        expectedConversionWord(number = 221, expectedWord = "two hundred and twenty-one")
+        expectedConversionWord(number = 999, expectedWord = "nine hundred and ninety-nine")
+        expectedConversionWord(number = 315, expectedWord = "three hundred and fifteen")
     }
 
-    private fun expectedConversion(expected: String = "zero", number: Int = 0) {
-        assertEquals(expected, number.convertNumberIntoWords())
+    @Test
+    fun `should return 1 to 9 single digits words in numbers`() {
+        expectedConversionNumber(word = "one", expectedNumber = 1)
+        expectedConversionNumber(word = "two", expectedNumber = 2)
+        expectedConversionNumber(word = "three", expectedNumber = 3)
+        expectedConversionNumber(word = "four", expectedNumber = 4)
+        expectedConversionNumber(word = "five", expectedNumber = 5)
+        expectedConversionNumber(word = "six", expectedNumber = 6)
+        expectedConversionNumber(word = "seven", expectedNumber = 7)
+        expectedConversionNumber(word = "eight", expectedNumber = 8)
+        expectedConversionNumber(word = "nine", expectedNumber = 9)
+    }
+
+    @Test
+    fun `should return 10 to 19 words in numbers`() {
+        expectedConversionNumber(word = "ten", expectedNumber = 10)
+        expectedConversionNumber(word = "eleven", expectedNumber = 11)
+        expectedConversionNumber(word = "twelve", expectedNumber = 12)
+        expectedConversionNumber(word = "thirteen", expectedNumber = 13)
+        expectedConversionNumber(word = "fourteen", expectedNumber = 14)
+        expectedConversionNumber(word = "fifteen", expectedNumber = 15)
+        expectedConversionNumber(word = "sixteen", expectedNumber = 16)
+        expectedConversionNumber(word = "seventeen", expectedNumber = 17)
+        expectedConversionNumber(word = "eighteen", expectedNumber = 18)
+        expectedConversionNumber(word = "nineteen", expectedNumber = 19)
+    }
+
+    @Test
+    fun `should return 10's multiples words in numbers`() {
+        expectedConversionNumber(word = "ten", expectedNumber = 10)
+        expectedConversionNumber(word = "twenty", expectedNumber = 20)
+        expectedConversionNumber(word = "thirty", expectedNumber = 30)
+        expectedConversionNumber(word = "forty", expectedNumber = 40)
+        expectedConversionNumber(word = "fifty", expectedNumber = 50)
+        expectedConversionNumber(word = "sixty", expectedNumber = 60)
+        expectedConversionNumber(word = "seventy", expectedNumber = 70)
+        expectedConversionNumber(word = "eighty", expectedNumber = 80)
+        expectedConversionNumber(word = "ninety", expectedNumber = 90)
+    }
+
+    private fun expectedConversionNumber(expectedNumber: Int, word: String) {
+        assertEquals(expectedNumber, word.convertWordToNumber())
+    }
+
+    private fun expectedConversionWord(expectedWord: String, number: Int) {
+        assertEquals(expectedWord, number.convertNumberToWords())
     }
 }
