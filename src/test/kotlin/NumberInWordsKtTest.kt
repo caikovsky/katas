@@ -100,6 +100,38 @@ internal class NumberInWordsKtTest {
         expectedConversionNumber(word = "ninety", expectedNumber = 90)
     }
 
+    @Test
+    fun `should convert arbitrary two digits to number`() {
+        expectedConversionNumber(word = "twenty-one", expectedNumber = 21)
+        expectedConversionNumber(word = "sixty-five", expectedNumber = 65)
+        expectedConversionNumber(word = "ninety-nine", expectedNumber = 99)
+    }
+
+    @Test
+    fun `should convert arbitrary three digits to number`() {
+        expectedConversionNumber(word = "one hundred", expectedNumber = 100)
+        expectedConversionNumber(word = "two hundred", expectedNumber = 200)
+        expectedConversionNumber(word = "three hundred", expectedNumber = 300)
+        expectedConversionNumber(word = "four hundred", expectedNumber = 400)
+        expectedConversionNumber(word = "five hundred", expectedNumber = 500)
+        expectedConversionNumber(word = "six hundred", expectedNumber = 600)
+        expectedConversionNumber(word = "seven hundred", expectedNumber = 700)
+        expectedConversionNumber(word = "eight hundred", expectedNumber = 800)
+        expectedConversionNumber(word = "nine hundred", expectedNumber = 900)
+    }
+
+    @Test
+    fun `should convert arbitrary 100s`() {
+        expectedConversionNumber(word = "one hundred and two", expectedNumber = 102)
+        expectedConversionNumber(word = "two hundred and three", expectedNumber = 203)
+        expectedConversionNumber(word = "three hundred and four", expectedNumber = 304)
+        expectedConversionNumber(word = "four hundred and ten", expectedNumber = 410)
+        expectedConversionNumber(word = "five hundred and twenty-two", expectedNumber = 522)
+        expectedConversionNumber(word = "five hundred and thirty-five", expectedNumber = 535)
+        expectedConversionNumber(word = "six hundred and sixty-six", expectedNumber = 666)
+        expectedConversionNumber(word = "nine hundred and sixty-nine", expectedNumber = 969)
+    }
+
     private fun expectedConversionNumber(expectedNumber: Int, word: String) {
         assertEquals(expectedNumber, word.convertWordToNumber())
     }

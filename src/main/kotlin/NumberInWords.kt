@@ -1,4 +1,4 @@
-val numbersWithWords = mapOf(
+val cardinalNumbers = mapOf(
     0 to "zero", 1 to "one", 2 to "two", 3 to "three", 4 to "four",
     5 to "five", 6 to "six", 7 to "seven", 8 to "eight", 9 to "nine",
     10 to "ten", 11 to "eleven", 12 to "twelve", 13 to "thirteen",
@@ -8,9 +8,11 @@ val numbersWithWords = mapOf(
     80 to "eighty", 90 to "ninety"
 )
 
+const val ORDINAL_DELIMITER = "-"
+
 val convertFunctions = mapOf<Int, (Int) -> String>(
-    2 to {number -> get2DigitsText(number)},
-    3 to {number -> get3DigitsText(number)}
+    2 to { number -> get2DigitsText(number) },
+    3 to { number -> get3DigitsText(number) }
 )
 
 fun Int.convertNumberToWords(): String {
@@ -18,12 +20,34 @@ fun Int.convertNumberToWords(): String {
 }
 
 fun String.convertWordToNumber(): Int {
-    return numbersWithWords.filterValues { word -> this == word }.keys.first()
+    return convertWords(this)
+}
+
+fun convertWords(wordNumber: String): Int {
+    val filteredWords = cardinalNumbers.filterValues { word -> wordNumber == word }
+
+    if (filteredWords.isNotEmpty()) {
+        return filteredWords.keys.first()
+    }
+
+    if (wordNumber.contains("and")) {
+        return wordNumber.split("and").sumOf { convertWords(it.trim()) }
+    }
+
+    if (wordNumber.contains("hundred")) {
+        return get3DigitsNumber(wordNumber)
+    }
+
+    return getOrdinal2DigitsNumber(wordNumber)
+}
+
+fun get3DigitsNumber(wordNumber: String): Int {
+    return convertWords(wordNumber.split(" ").first()) * 100
 }
 
 private fun convertNumbers(number: Int): String {
-    if (numbersWithWords.contains(number)) {
-        return numbersWithWords.getValue(number)
+    if (cardinalNumbers.contains(number)) {
+        return cardinalNumbers.getValue(number)
     }
     return convertFunctions["$number".length]?.invoke(number).toString()
 }
@@ -34,8 +58,12 @@ private fun get2DigitsText(number: Int): String {
     return if (remain != 0) {
         "${convertNumbers(tens)}-${convertNumbers(remain)}"
     } else {
-        "number not mapped."
+        "Number not mapped."
     }
+}
+
+private fun getOrdinal2DigitsNumber(word: String): Int {
+    return word.split(ORDINAL_DELIMITER).sumOf { convertWords(it) }
 }
 
 private fun get3DigitsText(number: Int): String {
