@@ -62,13 +62,36 @@ internal class StringCalculatorKtTest {
 
     @Test
     fun `return the new line error when the line break is after or before a comma`() {
-        assertEquals("Number expected but '\\n' found at position 6", add("1,\n2,3"))
-        assertEquals("Number expected but '\\n' found at position 6", add("1,2\n,3"))
+        assertEquals("Number expected but '\\n' found at position 6.", add("175.2,\n35"))
+        assertEquals("Number expected but '\\n' found at position 2.", add("1,\n2,3"))
+        assertEquals("Number expected but '\\n' found at position 3.", add("1,2\n,3"))
     }
 
     @Test
+    @Ignore
     fun `return the new line error when the line break is after and before a comma`() {
-        assertEquals("Number expected but '\\n' found at position 6", add("1,\n2,3,0.1\n,0.9"))
+        assertEquals("Number expected but '\\n' found at position 6.", add("1,\n2,3,0.1\n,0.9"))
+    }
+
+    @Test
+    fun `returns error if number ends with a separator`() {
+        assertEquals("Number expected but EOF found.", add("10,"))
+        assertEquals("Number expected but EOF found.", add("1,2,"))
+        assertEquals("Number expected but EOF found.", add("10\n"))
+        assertEquals("Number expected but EOF found.", add("1,0\n"))
+    }
+
+    @Test
+    fun `returns error if number starts with a separator`() {
+        assertEquals("Number expected but SOF found.", add(",10"))
+        assertEquals("Number expected but SOF found.", add("\n10"))
+    }
+
+    @Test
+    @Ignore
+    // TODO
+    fun `returns the sum of two numbers with different delimiters`() {
+        assertEquals("3", add("//;\n1;2"))
     }
 
     @Test
