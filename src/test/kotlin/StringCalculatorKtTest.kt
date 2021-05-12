@@ -88,10 +88,16 @@ internal class StringCalculatorKtTest {
     }
 
     @Test
-    @Ignore
-    // TODO
     fun `returns the sum of two numbers with different delimiters`() {
         assertEquals("3", add("//;\n1;2"))
+        assertEquals("6", add("//|\n1|2|3"))
+        assertEquals("5", add("//sep\n2sep3"))
+    }
+
+    @Test
+    @Ignore
+    fun `returns delimiter error when the delimiter used is different from the one tht was set`() {
+        assertEquals("'|' expected but ',' found at position 3.", add("//|\n1|2,3"))
     }
 
     @Test
