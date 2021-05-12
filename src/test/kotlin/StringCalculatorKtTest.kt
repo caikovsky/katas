@@ -95,8 +95,14 @@ internal class StringCalculatorKtTest {
     }
 
     @Test
+    fun `returns delimiter error when the delimiter used is a single character and different from the one that was set`() {
+        assertEquals("'|' expected but ',' found at position 3.", add("//|\n1|2,3"))
+    }
+
+    // TODO
+    @Test
     @Ignore
-    fun `returns delimiter error when the delimiter used is different from the one tht was set`() {
+    fun `returns delimiter error when the delimiter used is a string and different from the one that was set`() {
         assertEquals("'|' expected but ',' found at position 3.", add("//|\n1|2,3"))
     }
 
