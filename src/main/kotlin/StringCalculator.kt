@@ -31,12 +31,18 @@ fun add(number: String): String {
                     it.toFloatHandlingEmpty()
                 } else {
                     var index = 0
-                    var wrongDelimiter = ""
+                    var wrongDelimiter = it.toCharArray().filter { char ->
+                        !char.isDigit()
+                    }.joinToString("")
 
-                    str.forEachIndexed { i, char ->
-                        if (char != delimiter.first() && !char.isDigit()) {
-                            wrongDelimiter = char.toString()
+                    if (wrongDelimiter.contains(delimiter, ignoreCase = true)) {
+                        wrongDelimiter = wrongDelimiter.replace(delimiter, "")
+                    }
+
+                    for (i in str.indices) {
+                        if (str[i] != delimiter.first() && !str[i].isDigit()) {
                             index = i
+                            break
                         }
                     }
 

@@ -1,8 +1,8 @@
-import org.junit.Ignore
-import org.junit.Test
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-internal class StringCalculatorKtTest {
+class StringCalculatorKtTest {
 
     @Test
     fun `return 0 when number is empty`() {
@@ -68,7 +68,7 @@ internal class StringCalculatorKtTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     fun `return the new line error when the line break is after and before a comma`() {
         assertEquals("Number expected but '\\n' found at position 6.", add("1,\n2,3,0.1\n,0.9"))
     }
@@ -99,15 +99,18 @@ internal class StringCalculatorKtTest {
         assertEquals("'|' expected but ',' found at position 3.", add("//|\n1|2,3"))
     }
 
-    // TODO
     @Test
-    @Ignore
     fun `returns delimiter error when the delimiter used is a string and different from the one that was set`() {
-        assertEquals("'|' expected but ',' found at position 3.", add("//|\n1|2,3"))
+        assertEquals("'|' expected but 'sep' found at position 3.", add("//|\n1|2sep3"))
     }
 
     @Test
-    @Ignore
+    fun `returns delimiter error when the delimiter used is a string, has uppercase letters and different from the one that was set`() {
+        assertEquals("'|' expected but 'sEp' found at position 3.", add("//|\n1|2sEp3"))
+    }
+
+    @Test
+    @Disabled
     fun `return malformed decimal number error if number has a missing decimal value`() {
         assertEquals("error!", add("10."))
     }
