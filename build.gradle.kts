@@ -14,7 +14,9 @@ repositories {
 
 dependencies {
     implementation("org.junit.jupiter:junit-jupiter:5.7.0")
-    testImplementation(kotlin("test-junit"))
+    testImplementation("io.mockk:mockk:1.11.0")
+    testImplementation("org.hamcrest:hamcrest:2.2")
+    testImplementation(kotlin("test-junit5"))
 }
 
 tasks.test {
